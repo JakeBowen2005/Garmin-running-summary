@@ -28,5 +28,7 @@ def weekly_mile_bar(data):
             va="bottom"
         )
     plt.tight_layout()
+    #Saves graph in the folder
+    plt.savefig("output/visuals/weekly_miles.png", dpi=300, bbox_inches="tight")
     plt.show()
 
