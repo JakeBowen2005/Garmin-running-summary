@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import time_pace_func
+import bar_graph_functions
 
 my_email = "jakeeb05@gmail.com"
 my_password = "jsyvqmqwkfxilewg"
@@ -12,7 +13,7 @@ my_password = "jsyvqmqwkfxilewg"
 
 
 file =input("Input path to garmin csv or drop csv file in terminal: ").strip()
-user_email = input("Input email to send data to: ").strip()
+# user_email = input("Input email to send data to: ").strip()
 file = file.replace("\\ ", " ") 
 data = pd.read_csv(f"{file}")
 
@@ -59,6 +60,5 @@ data = data[["Date", "Week", "Weekday", "Distance", "Calories",
              "Time", "Avg HR", "Max HR", "Avg Pace", "Best Pace",
              "Zones", "Total Ascent", "Total Descent", "Steps"]]
 
-print(data.head(5))
-print(user_email)
-data.to_csv("user_data.csv", index=False)
+#creating first bar graph of weekly total miles
+bar_graph_functions.weekly_mile_bar(data)
