@@ -11,8 +11,9 @@ my_password = "jsyvqmqwkfxilewg"
 # /Users/jakebowen/Desktop/Pandas/Garmin Data/Activities.csv
 
 
-file =input("Input path to garmin csv: ").strip()
+file =input("Input path to garmin csv or drop csv file in terminal: ").strip()
 user_email = input("Input email to send data to: ").strip()
+file = file.replace("\\ ", " ") 
 data = pd.read_csv(f"{file}")
 
 #Date
