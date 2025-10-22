@@ -1,17 +1,18 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-import time_pace_func.py
+import time_pace_func
 
 my_email = "jakeeb05@gmail.com"
 my_password = "jsyvqmqwkfxilewg"
 #Steps
 #Get and clean data / make sure all strings are numbers, missing values are filled and we added the columns we need to summarize
 
+# /Users/jakebowen/Desktop/Pandas/Garmin Data/Activities.csv
 
 
-file =input("Input path to garmin csv: ")
-user_email = input("Input email to send data to: ")
+file =input("Input path to garmin csv: ").strip()
+user_email = input("Input email to send data to: ").strip()
 data = pd.read_csv(f"{file}")
 
 #Date
@@ -56,3 +57,7 @@ data["Zones"] = pd.cut(data["Avg HR"], bins = zone_bins, labels = zone_labels, r
 data = data[["Date", "Week", "Weekday", "Distance", "Calories",
              "Time", "Avg HR", "Max HR", "Avg Pace", "Best Pace",
              "Zones", "Total Ascent", "Total Descent", "Steps"]]
+
+print(data.head(5))
+print(user_email)
+data.to_csv("user_data.csv", index=False)
