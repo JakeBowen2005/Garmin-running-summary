@@ -25,9 +25,6 @@ data["Weekday"] = data["Date"].dt.day_name()
 data["Week_Start"] = data["Date"].dt.to_period("W-SUN").apply(lambda r: r.start_time)
 data["Week"] = data["Week_Start"].rank(method="dense").astype(int)
 
-#Dropping columns
-data = data[["Date", "Week", "Weekday", "Distance", "Calories", "Time", "Avg HR", "Max HR", 
-             "Avg Pace", "Best Pace", "Total Ascent", "Total Descent", "Steps"]]
 
 #Turning the strings into numbers
 #Filling in missing values with 0
@@ -55,11 +52,21 @@ zone_bins = [0,120,145,160,175,200]
 zone_labels = ["Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5"]
 data["Zones"] = pd.cut(data["Avg HR"], bins = zone_bins, labels = zone_labels, right=False)
 
-#Lastly drop columns
-data = data[["Date", "Week", "Weekday", "Distance", "Calories",
-             "Time", "Avg HR", "Max HR", "Avg Pace", "Best Pace",
-             "Zones", "Total Ascent", "Total Descent", "Steps", "Month"]]
+#Adding Distance bins
+distance_bins = [0,5,10,15,20,25,100]
+distance_labels = ["0-5", "5-10", "10-15", "15-20", "20-25", "25+"]
+data["Distance Ranges"] = pd.cut(data["Distance"], bins = distance_bins, labels = distance_labels, right=False)
 
-#creating first bar graph of weekly total miles
+#Lastly drop columns
+data = data[["Date", "Week", "Weekday", "Month", "Distance", "Avg Pace",
+             "Time", "Avg HR", "Max HR", "Best Pace",
+             "Zones", "Total Ascent", "Total Descent", "Steps", 
+             "Calories", "Distance Ranges"]]
+
+#creating bar graph data
 bar_graph_functions.weekly_mile_bar(data)
 bar_graph_functions.monthly_mile_bar(data)
+bar_graph_functions.avg_pace_per_distance_bar(data)
+bar_graph_functions.avg_pace_per_zone(data)
+
+data.to_csv("USER_data.csv")

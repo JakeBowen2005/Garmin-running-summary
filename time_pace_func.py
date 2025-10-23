@@ -16,3 +16,13 @@ def pace_converter(pace):
     s = s/100
     final_pace = m+s
     return round(final_pace,2)
+
+#Turning float pace to real min per mile pace
+def float_to_pace(pace):
+    m = int(pace)
+    s= round((pace -m)*60)
+    if s == 60:
+        m += 1
+        s = 0
+
+    return f"{m}:{s:02d}" 
