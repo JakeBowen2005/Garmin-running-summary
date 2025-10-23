@@ -64,6 +64,8 @@ def monthly_mile_bar(data):
     plt.savefig("output/visuals/monthly_miles.png", dpi=300, bbox_inches="tight")
     plt.show()
 
+
+#Bar Graph showing the avgerage pace per distance range
 def avg_pace_per_distance_bar(data):
     avg_pace_distance = data.groupby("Distance Ranges")["Avg Pace"].mean().round(2).dropna()
 
@@ -92,6 +94,7 @@ def avg_pace_per_distance_bar(data):
     plt.savefig("output/visuals/average_pace_per_distance.png", dpi=300, bbox_inches="tight")
     plt.show()
 
+#bar graph showing avergae per heart rate zone
 def avg_pace_per_zone(data):
     pace_per_zone = data.groupby("Zones")["Avg Pace"].mean().round(2).dropna()
     #getting start and end dates

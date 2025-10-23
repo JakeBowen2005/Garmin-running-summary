@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import time_pace_func
 import bar_graph_functions
+import scatter_regression_functions
 
 my_email = "jakeeb05@gmail.com"
 my_password = "jsyvqmqwkfxilewg"
@@ -64,9 +65,13 @@ data = data[["Date", "Week", "Weekday", "Month", "Distance", "Avg Pace",
              "Calories", "Distance Ranges"]]
 
 #creating bar graph data
-bar_graph_functions.weekly_mile_bar(data)
-bar_graph_functions.monthly_mile_bar(data)
-bar_graph_functions.avg_pace_per_distance_bar(data)
-bar_graph_functions.avg_pace_per_zone(data)
+# bar_graph_functions.weekly_mile_bar(data)
+# bar_graph_functions.monthly_mile_bar(data)
+# bar_graph_functions.avg_pace_per_distance_bar(data)
+# bar_graph_functions.avg_pace_per_zone(data)
+
+#creating scatterplot data
+scatter_regression_functions.hr_pace_scatter(data)
+
 
 data.to_csv("USER_data.csv")
