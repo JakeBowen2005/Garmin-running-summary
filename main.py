@@ -58,7 +58,8 @@ data["Zones"] = pd.cut(data["Avg HR"], bins = zone_bins, labels = zone_labels, r
 #Lastly drop columns
 data = data[["Date", "Week", "Weekday", "Distance", "Calories",
              "Time", "Avg HR", "Max HR", "Avg Pace", "Best Pace",
-             "Zones", "Total Ascent", "Total Descent", "Steps"]]
+             "Zones", "Total Ascent", "Total Descent", "Steps", "Month"]]
 
 #creating first bar graph of weekly total miles
 bar_graph_functions.weekly_mile_bar(data)
+bar_graph_functions.monthly_mile_bar(data)
