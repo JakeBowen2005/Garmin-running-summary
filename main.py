@@ -4,6 +4,7 @@ import numpy as np
 import time_pace_func
 import bar_graph_functions
 import scatter_regression_functions
+import dual_axis_graphs
 
 my_email = "jakeeb05@gmail.com"
 my_password = "jsyvqmqwkfxilewg"
@@ -71,7 +72,11 @@ data = data[["Date", "Week", "Weekday", "Month", "Distance", "Avg Pace",
 # bar_graph_functions.avg_pace_per_zone(data)
 
 #creating scatterplot data
-scatter_regression_functions.hr_pace_scatter(data)
+# scatter_regression_functions.hr_pace_scatter(data)\
+
+#dual axis data
+dual_axis_graphs.miles_pace_dual(data)
+
 
 
 data.to_csv("USER_data.csv")
