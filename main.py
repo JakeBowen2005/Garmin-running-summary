@@ -76,6 +76,7 @@ data = data[["Date", "Week", "Weekday", "Month", "Distance", "Avg Pace",
 
 #dual axis data
 dual_axis_graphs.miles_pace_dual(data)
+dual_axis_graphs.time_miles_dual(data)
 
 
 
