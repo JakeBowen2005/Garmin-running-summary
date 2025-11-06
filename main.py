@@ -5,6 +5,7 @@ import time_pace_func
 import bar_graph_functions
 import scatter_regression_functions
 import dual_axis_graphs
+import email_functions
 
 my_email = "jakeeb05@gmail.com"
 my_password = "jsyvqmqwkfxilewg"
@@ -21,7 +22,6 @@ file =input("Input path to garmin csv or drop csv file in terminal: ").strip()
 file = file.replace("\\ ", " ") 
 data = pd.read_csv(f"{file}")
 
-user_email = input("Enter email you want summary sent to: ")
 
 #Date
 data["Date"] = pd.to_datetime(data["Date"])
@@ -85,3 +85,4 @@ dual_axis_graphs.time_miles_dual(data)
 
 
 data.to_csv("USER_data.csv")
+email_functions.send_email(user_email)
