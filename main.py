@@ -14,10 +14,14 @@ my_password = "jsyvqmqwkfxilewg"
 # /Users/jakebowen/Desktop/Pandas/Garmin Data/Activities.csv
 
 
+user_email = input("Enter email you want summary sent to: ")
+
 file =input("Input path to garmin csv or drop csv file in terminal: ").strip()
 # user_email = input("Input email to send data to: ").strip()
 file = file.replace("\\ ", " ") 
 data = pd.read_csv(f"{file}")
+
+user_email = input("Enter email you want summary sent to: ")
 
 #Date
 data["Date"] = pd.to_datetime(data["Date"])
@@ -66,13 +70,13 @@ data = data[["Date", "Week", "Weekday", "Month", "Distance", "Avg Pace",
              "Calories", "Distance Ranges"]]
 
 #creating bar graph data
-# bar_graph_functions.weekly_mile_bar(data)
-# bar_graph_functions.monthly_mile_bar(data)
-# bar_graph_functions.avg_pace_per_distance_bar(data)
-# bar_graph_functions.avg_pace_per_zone(data)
+bar_graph_functions.weekly_mile_bar(data)
+bar_graph_functions.monthly_mile_bar(data)
+bar_graph_functions.avg_pace_per_distance_bar(data)
+bar_graph_functions.avg_pace_per_zone(data)
 
 #creating scatterplot data
-# scatter_regression_functions.hr_pace_scatter(data)\
+scatter_regression_functions.hr_pace_scatter(data)
 
 #dual axis data
 dual_axis_graphs.miles_pace_dual(data)
