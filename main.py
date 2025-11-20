@@ -6,6 +6,17 @@ import bar_graph_functions
 import scatter_regression_functions
 import dual_axis_graphs
 import email_functions
+import sys
+import os
+
+# Get the path to the summary folder
+current_dir = os.path.dirname(os.path.realpath(__file__))
+summary_folder = os.path.join(current_dir, "summary")
+
+# Add it to the Python path
+sys.path.append(summary_folder)
+
+import sum_functions
 
 my_email = "jakeeb05@gmail.com"
 my_password = "jsyvqmqwkfxilewg"
@@ -81,6 +92,15 @@ scatter_regression_functions.hr_pace_scatter(data)
 #dual axis data
 dual_axis_graphs.miles_pace_dual(data)
 dual_axis_graphs.time_miles_dual(data)
+
+#creating the summary functions
+highest_mile_week = sum_functions.mile_high_week(data)
+highest_mile_month = sum_functions.mile_high_month(data)
+most_aerobic_month = sum_functions.most_aerobic_month(data)
+
+start_date = data["Date"].min()
+end_date = data["Data"].max()
+
 
 
 
