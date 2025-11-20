@@ -30,7 +30,7 @@ def weekly_mile_bar(data):
     plt.tight_layout()
     #Saves graph in the folder
     plt.savefig("output/visuals/weekly_miles.png", dpi=300, bbox_inches="tight")
-    plt.show()
+    # plt.show()
 
 #Bar Graph showing monthly total miles
 
@@ -62,7 +62,7 @@ def monthly_mile_bar(data):
     plt.tight_layout()
 
     plt.savefig("output/visuals/monthly_miles.png", dpi=300, bbox_inches="tight")
-    plt.show()
+    # plt.show()
 
 
 #Bar Graph showing the avgerage pace per distance range
@@ -92,7 +92,7 @@ def avg_pace_per_distance_bar(data):
             )    
     plt.tight_layout()
     plt.savefig("output/visuals/average_pace_per_distance.png", dpi=300, bbox_inches="tight")
-    plt.show()
+    # plt.show()
 
 #bar graph showing avergae per heart rate zone
 def avg_pace_per_zone(data):
@@ -121,7 +121,7 @@ def avg_pace_per_zone(data):
 
     plt.tight_layout()
     plt.savefig("output/visuals/pace_per_zone.png", dpi=300, bbox_inches="tight")
-    plt.show()
+    # plt.show()
 
 
 

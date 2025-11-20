@@ -1,4 +1,5 @@
 import pandas as pd
+import datetime as dt
 
 #Highest Mile Week
 def mile_high_week(data):
@@ -34,14 +35,19 @@ def mile_high_month(data):
 
 def most_aerobic_month(data):
     #group by the month
-    monthly = data.groupby("Month").agg({
+    data["MonthPeriod"] = data["Date"].dt.to_period("M")
+
+    monthly = data.groupby("MonthPeriod").agg({
         "Distance" : "sum",
-        "Avg HR": "mean"
+        "Avg HR": "mean",
     })
 
     #computing aerobic score
     monthly["AerobicScore"] = monthly["Distance"] / monthly["Avg HR"]
-    return monthly["AerobicScore"].idxmax()
+
+    best_month = monthly["AerobicScore"].idxmax()
+    best_date = best_month.to_timestamp()
+    return best_date.strftime("%B %Y")
 
 
     

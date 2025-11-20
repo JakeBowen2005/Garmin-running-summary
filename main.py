@@ -105,20 +105,21 @@ mstart_date = mstart_date.strftime("%b %d, %Y")
 mend_date = mend_date.strftime("%b %d, %Y")
 
 start_date = data["Date"].min()
+start_date = start_date.strftime("%b %d %Y")
 end_date = data["Date"].max()
+end_date = end_date.strftime("%b %d %Y")
 
 def create_email_test():
-    print(f"""
+    text = (f"""
           Between the dates: {start_date} - {end_date}
     Your highest mileage week was {highest_mile_week} between {wstart_date} - {wend_date}.
     Your highest mileage month was {highest_mile_month} between {mstart_date} - {mend_date}.
     Your most aerboic month was {most_aerobic_month}
           """)
+    return text
     
-
-create_email_test()
-
+summary_text = create_email_test()
 
 
 data.to_csv("USER_data.csv")
-email_functions.send_email(user_email)
+# email_functions.send_email(user_email, summary_text)

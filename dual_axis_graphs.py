@@ -29,7 +29,7 @@ def miles_pace_dual(data):
 
     plt.tight_layout()
     plt.savefig("output/visuals/weekly_miles_vs_pace.png", dpi=300, bbox_inches="tight")
-    plt.show()
+    # plt.show()
 
 def time_miles_dual(data):
     weekly = data.groupby("Week").agg({
@@ -57,4 +57,4 @@ def time_miles_dual(data):
 
     plt.tight_layout()
     plt.savefig("output/visuals/weekly_time_vs_miles", dpi=300, bbox_inches="tight")
-    plt.show()
+    # plt.show()

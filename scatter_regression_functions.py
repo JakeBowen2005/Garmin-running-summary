@@ -4,6 +4,17 @@ import time_pace_func
 import numpy as np
 #Scatterplot to show a correlation between average pace and average heart rate
 def hr_pace_scatter(data):
+    #Filtering outliers
+    q1 = data["Avg Pace"].quantile(0.25)
+    q3 = data["Avg Pace"].quantile(0.75)
+    iqr = q3-q1
+
+    low = q1 - 1.5*(iqr)
+    high = q3+ 1.5*(iqr)
+
+    data = data[(data["Avg Pace"] >= low) & (data["Avg Pace"] <= high)]
+
+
     #Fit the regression line
     z = np.polyfit(data["Avg Pace"], data["Avg HR"], 1)
     # np.polyfit(x,y,1) fits a polynomial of degree 1 return [m,b] in y=m(x)+b
@@ -37,4 +48,4 @@ def hr_pace_scatter(data):
     plt.ylabel("Average Heart Rate")
     plt.tight_layout()
     plt.savefig("output/visuals/pace_hr_regression.png", dpi=300, bbox_inches="tight")
-    plt.show()
+    # plt.show()

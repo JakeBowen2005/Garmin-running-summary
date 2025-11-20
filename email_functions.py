@@ -9,7 +9,7 @@ my_email = "jakeeb05@gmail.com"
 # password = "Baller05$"
 password = "jsyvqmqwkfxilewg"
 
-def send_email(user_email):
+def send_email(user_email, summary_text):
     #Creating the message
     msg = MIMEMultipart()
     msg["From"] = my_email
@@ -17,8 +17,7 @@ def send_email(user_email):
     msg["Subject"] = "Your Garmin running Summary Visuals"
 
     #Email body
-    body = "Here are your running summary visuals from your Garmin data project."
-    msg.attach(MIMEText(body, "plain"))
+    msg.attach(MIMEText(summary_text, "plain"))
 
     #Folder where all the users visuals are saved
     visuals_folder = "output/visuals"
