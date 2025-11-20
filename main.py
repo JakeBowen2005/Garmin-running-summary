@@ -9,12 +9,12 @@ import email_functions
 import sys
 import os
 
-# Get the path to the summary folder
+# Get path to the summaries folder
 current_dir = os.path.dirname(os.path.realpath(__file__))
-summary_folder = os.path.join(current_dir, "summary")
+summaries_folder = os.path.join(current_dir, "output", "summaries")
 
-# Add it to the Python path
-sys.path.append(summary_folder)
+# Add it to Python path
+sys.path.append(summaries_folder)
 
 import sum_functions
 
@@ -94,13 +94,29 @@ dual_axis_graphs.miles_pace_dual(data)
 dual_axis_graphs.time_miles_dual(data)
 
 #creating the summary functions
-highest_mile_week = sum_functions.mile_high_week(data)
-highest_mile_month = sum_functions.mile_high_month(data)
+highest_mile_week, wstart_date, wend_date = sum_functions.mile_high_week(data)
+highest_mile_month, mstart_date, mend_date = sum_functions.mile_high_month(data)
 most_aerobic_month = sum_functions.most_aerobic_month(data)
 
-start_date = data["Date"].min()
-end_date = data["Data"].max()
+wstart_date = wstart_date.strftime("%b %d, %Y")
+wend_date = wend_date.strftime("%b %d, %Y")
 
+mstart_date = mstart_date.strftime("%b %d, %Y")
+mend_date = mend_date.strftime("%b %d, %Y")
+
+start_date = data["Date"].min()
+end_date = data["Date"].max()
+
+def create_email_test():
+    print(f"""
+          Between the dates: {start_date} - {end_date}
+    Your highest mileage week was {highest_mile_week} between {wstart_date} - {wend_date}.
+    Your highest mileage month was {highest_mile_month} between {mstart_date} - {mend_date}.
+    Your most aerboic month was {most_aerobic_month}
+          """)
+    
+
+create_email_test()
 
 
 
