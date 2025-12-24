@@ -8,6 +8,11 @@ import dual_axis_graphs
 import email_functions
 import sys
 import os
+import db
+
+#Creating the database
+db.init_db()
+
 
 # Get path to the summaries folder
 current_dir = os.path.dirname(os.path.realpath(__file__))
@@ -80,6 +85,28 @@ data = data[["Date", "Week", "Weekday", "Month", "Distance", "Avg Pace",
              "Zones", "Total Ascent", "Total Descent", "Steps", 
              "Calories", "Distance Ranges"]]
 
+#Put into SQL database
+for _, row in data.iterrows():
+    row = (
+        row["Date"].isoformat(),
+        int(row["Week"]),
+        row["Weekday"],
+        row["Month"],
+        float(row["Distance"]),
+        float(row["Avg Pace"]),
+        float(row["Time"]),
+        float(row["Avg HR"]),
+        float(row["Max HR"]),
+        float(row["Best Pace"]),
+        row["Zones"],
+        float(row["Total Ascent"]),
+        float(row["Total Descent"]),
+        int(row["Steps"]),
+        int(row["Calories"]),
+        row["Distance Ranges"]
+    )
+    db.insert_activity(row)
+
 #creating bar graph data
 bar_graph_functions.weekly_mile_bar(data)
 bar_graph_functions.monthly_mile_bar(data)
@@ -122,4 +149,4 @@ summary_text = create_email_test()
 
 
 data.to_csv("USER_data.csv")
-# email_functions.send_email(user_email, summary_text)
+email_functions.send_email(user_email, summary_text)
