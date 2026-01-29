@@ -31,7 +31,8 @@ my_password = "jsyvqmqwkfxilewg"
 # /Users/jakebowen/Desktop/Pandas/Garmin Data/Activities.csv
 
 
-user_email = input("Enter email you want summary sent to: ")
+user_email = input("Enter email you want summary sent to: ").strip()
+user_id = db.get_or_create_user(user_email)
 
 file =input("Input path to garmin csv or drop csv file in terminal: ").strip()
 # user_email = input("Input email to send data to: ").strip()
@@ -51,7 +52,7 @@ data["Week"] = data["Week_Start"].rank(method="dense").astype(int)
 #Turning the strings into numbers
 #Filling in missing values with 0
 data = data.copy()
-cols = ["Distance", "Calories", "Steps", "Total Ascent", "Total Descent"]
+cols = ["Distance", "Calories", "Steps", "Total Ascent", "Total Descent", "Avg HR", "Max HR"]
 for col in cols:
     data[col] = data[col].astype(str).str.replace(",","").replace("--", "0").astype(float)
 
@@ -98,14 +99,14 @@ for _, row in data.iterrows():
         float(row["Avg HR"]),
         float(row["Max HR"]),
         float(row["Best Pace"]),
-        row["Zones"],
+        str(row["Zones"]),
         float(row["Total Ascent"]),
         float(row["Total Descent"]),
         int(row["Steps"]),
-        int(row["Calories"]),
-        row["Distance Ranges"]
+        float(row["Calories"]),
+        str(row["Distance Ranges"])
     )
-    db.insert_activity(row)
+    db.insert_activity(user_id, row)
 
 #creating bar graph data
 bar_graph_functions.weekly_mile_bar(data)
@@ -140,7 +141,7 @@ def create_email_test():
     text = (f"""
           Between the dates: {start_date} - {end_date}
     Your highest mileage week was {highest_mile_week} between {wstart_date} - {wend_date}.
-    Your highest mileage month was {highest_mile_month} between {mstart_date} - {mend_date}.
+    Your highest mileage month was {round(highest_mile_month,2)} between {mstart_date} - {mend_date}.
     Your most aerboic month was {most_aerobic_month}
           """)
     return text
