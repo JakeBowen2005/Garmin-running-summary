@@ -108,23 +108,51 @@ for _, row in data.iterrows():
     )
     db.insert_activity(user_id, row)
 
+#Getting all user data from SQLlite database
+sql = """
+SELECT
+    date,
+    week,
+    weekday,
+    month,
+    distance,
+    avg_pace,
+    time,
+    avg_hr,
+    max_hr,
+    best_pace,
+    zones,
+    ascent,
+    descent,
+    steps,
+    calories,
+    distance_range
+FROM activities
+WHERE user_id = ?
+ORDER BY date;
+"""
+
+user_conn = db.get_connection()
+all_user_data = pd.read_sql_query(sql, user_conn, params=(user_id))
+user_conn.close()
+
 #creating bar graph data
-bar_graph_functions.weekly_mile_bar(data)
-bar_graph_functions.monthly_mile_bar(data)
-bar_graph_functions.avg_pace_per_distance_bar(data)
-bar_graph_functions.avg_pace_per_zone(data)
+bar_graph_functions.weekly_mile_bar(all_user_data)
+bar_graph_functions.monthly_mile_bar(all_user_data)
+bar_graph_functions.avg_pace_per_distance_bar(all_user_data)
+bar_graph_functions.avg_pace_per_zone(all_user_data)
 
 #creating scatterplot data
-scatter_regression_functions.hr_pace_scatter(data)
+scatter_regression_functions.hr_pace_scatter(all_user_data)
 
 #dual axis data
-dual_axis_graphs.miles_pace_dual(data)
-dual_axis_graphs.time_miles_dual(data)
+dual_axis_graphs.miles_pace_dual(all_user_data)
+dual_axis_graphs.time_miles_dual(all_user_data)
 
 #creating the summary functions
-highest_mile_week, wstart_date, wend_date = sum_functions.mile_high_week(data)
-highest_mile_month, mstart_date, mend_date = sum_functions.mile_high_month(data)
-most_aerobic_month = sum_functions.most_aerobic_month(data)
+highest_mile_week, wstart_date, wend_date = sum_functions.mile_high_week(all_user_data)
+highest_mile_month, mstart_date, mend_date = sum_functions.mile_high_month(all_user_data)
+most_aerobic_month = sum_functions.most_aerobic_month(all_user_data)
 
 wstart_date = wstart_date.strftime("%b %d, %Y")
 wend_date = wend_date.strftime("%b %d, %Y")
